@@ -1,0 +1,26 @@
+name: Feature
+description: Propose a user-visible capability.
+title: "Feature: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and outcome
+      description: Who needs this and what outcome should it enable?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and constraints
+      description: Describe in-scope behavior, exclusions, safety implications, and dependencies.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: State observable behavior and how it will be verified.
+    validations:
+      required: true

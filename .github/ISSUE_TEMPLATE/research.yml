@@ -1,0 +1,24 @@
+name: Research
+description: Investigate an uncertainty before implementation.
+title: "Research: "
+labels: ["research"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question and context
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope, constraints, and dependencies
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Completion criteria
+      description: Describe the evidence, sources, decision, and unresolved risks to capture.
+    validations:
+      required: true

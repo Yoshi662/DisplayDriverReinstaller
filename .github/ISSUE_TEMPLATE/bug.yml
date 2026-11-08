@@ -1,0 +1,25 @@
+name: Bug
+description: Report a reproducible defect.
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Actual and expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include relevant versions and sanitized logs; never include secrets.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and recovery impact
+      description: Note any boot, driver, or data recovery impact.
+    validations:
+      required: true
