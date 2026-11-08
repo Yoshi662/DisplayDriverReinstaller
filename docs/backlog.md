@@ -6,7 +6,7 @@ These are **drafts, not GitHub issues**. Creating issues was blocked by the appl
 
 - **Governance:** provide feature, bug, and research forms, a PR template, contribution and security guidance, and a prioritized issue backlog. Record the repository bootstrap exception.
 - **.NET foundation:** provide a .NET 10 solution, minimal safe CLI, centrally managed dependencies, and meaningful automated tests. No driver or boot behavior.
-- **CI and protection:** run Windows restore, build, and tests; require PRs and the stable CI check on `main` when the private repository's GitHub plan permits it. Document limitations.
+- **CI and protection:** run Windows restore, build, and tests; require PRs and the stable CI check on `main`. Document administrative bypass.
 - **Documentation:** provide human and agent instructions, a future release process, and architecture, safety, and recovery design with uncertainties clearly identified.
 
 ## Application drafts

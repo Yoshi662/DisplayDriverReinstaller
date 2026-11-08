@@ -23,4 +23,4 @@ CI runs the same build and test commands on Windows. The SDK and dependencies ma
 
 Do not use the CLI to perform a driver reinstall: the capability does not exist yet. Safe Mode failure recovery, unattended sign-in, DDU automation, installer automation, and the final recovery procedure need research and testing on suitable environments before implementation. No dedicated AMD test machine is currently available.
 
-See [architecture and safety](docs/architecture.md), the [backlog drafts](docs/backlog.md), [contribution guidance](CONTRIBUTING.md), and [security reporting](SECURITY.md). The project is private; its source is licensed under [MIT](LICENSE). DDU and AMD software are separate third-party products and are neither included nor covered by this license.
+See [architecture and safety](docs/architecture.md), the [backlog drafts](docs/backlog.md), [contribution guidance](CONTRIBUTING.md), and [security reporting](SECURITY.md). The project is public; its source is licensed under [MIT](LICENSE). DDU and AMD software are separate third-party products and are neither included nor covered by this license.
