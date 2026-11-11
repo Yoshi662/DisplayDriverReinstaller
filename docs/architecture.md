@@ -8,8 +8,8 @@ This is a proposed design, not implemented behavior. The intended target is Wind
 
 The current application is a placeholder CLI. As features are implemented, organize them within the existing `src/DisplayDriverReinstaller` project:
 
-- `Features/<Feature>`: feature-specific behavior, models, and contracts.
-- `Process`: a small shared core for workflow state and transition rules.
+- `Steps/<Step>`: lifecycle-specific behavior, models, and contracts.
+- `WorkFlow`: a small shared core for workflow state and transition rules.
 - `Platform/Windows`: Windows-specific system operations and implementations of contracts needed by the application.
 
 These are proposed locations, not existing or required empty folders. Keep the structure lightweight and evolve it with actual features rather than creating abstractions in advance.
