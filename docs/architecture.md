@@ -2,7 +2,7 @@
 
 ## Status and boundaries
 
-This is a proposed design, not implemented behavior. The intended target is Windows 10 and 11 x64 with an AMD GPU. DDU and the AMD installer are provided through explicit local paths; the application must not download programs. Validate paths and the selected files before any disruptive operation. Do not include or redistribute either vendor's software without independently verifying its terms.
+This is a proposed design; only the read-only preflight step described below is implemented. The intended target is Windows 10 and 11 x64 with an AMD GPU. DDU and the AMD installer are provided through explicit local paths; the application must not download programs. Validate paths and the selected files before any disruptive operation. Do not include or redistribute either vendor's software without independently verifying its terms.
 
 ## Project structure convention
 
@@ -21,6 +21,14 @@ For example, a future DDU feature's request model and process-running contract c
 Mirror these areas under the existing `tests/DisplayDriverReinstaller.Tests` project as needed: test feature behavior alongside its feature, workflow rules independently of Windows, and platform-specific behavior at its boundary. Use fakes for system effects rather than performing real driver removal, installation, scheduling, or boot changes in automated tests or CI.
 
 Agents may update and expand this document during future work to explain the application's internal workings. Distinguish implemented behavior from proposals and keep the safety guidance current.
+
+## Implemented: preflight
+
+`Steps/Preflight` implements lifecycle step 1 and nothing after it. `PreflightStep` evaluates `PreflightCriteria` against facts obtained through the `IPreflightProbe` contract, which isolates read-only system effects so tests use fakes. `Platform/Windows/WindowsPreflightProbe` is the only real implementation (WMI `Win32_VideoController`, the registry edition value, process elevation, and file metadata). It never starts a tool.
+
+The result is a list of checks, each `Passed`, `Failed`, or `Unverifiable`. `PreflightResult.Passed` requires at least one check and every check passing; `EnsurePassed()` throws `PreflightFailedException` and is the gate later steps must call before proceeding. A null probe result or probe exception is `Unverifiable`, never a pass.
+
+Only Windows 10/11 x64 and AMD adapter presence are established criteria. Null members of `PreflightCriteria` represent criteria that still need research (edition, supported devices and driver prerequisites, readiness, and each tool's versions and signers); they yield `Unverifiable` and therefore a failed preflight. Fill them in only from documented, version-specific sources. Authenticode verification is not implemented in the Windows probe. Preflight cannot prevent a file being replaced between validation and execution; that needs a separate execution-time safeguard.
 
 ## Intended lifecycle
 

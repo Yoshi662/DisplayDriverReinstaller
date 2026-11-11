@@ -34,6 +34,20 @@ public class CommandLineTests
         Assert.Contains("No system changes were made", error, StringComparison.Ordinal);
     }
 
+    [Fact]
+    public async Task PreflightWithoutDocumentedCriteriaFailsWithoutSystemChanges()
+    {
+        using Process process = StartApplication("preflight");
+
+        string output = await process.StandardOutput.ReadToEndAsync(TestContext.Current.CancellationToken);
+        string error = await process.StandardError.ReadToEndAsync(TestContext.Current.CancellationToken);
+        await process.WaitForExitAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, process.ExitCode);
+        Assert.Contains("[FAIL] DDU file", output, StringComparison.Ordinal);
+        Assert.Contains("No system changes were made", error, StringComparison.Ordinal);
+    }
+
     private static Process StartApplication(params string[] arguments)
     {
         ProcessStartInfo startInfo = new()
