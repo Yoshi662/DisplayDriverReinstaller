@@ -4,6 +4,24 @@
 
 This is a proposed design, not implemented behavior. The intended target is Windows 10 and 11 x64 with an AMD GPU. DDU and the AMD installer are provided through explicit local paths; the application must not download programs. Validate paths and the selected files before any disruptive operation. Do not include or redistribute either vendor's software without independently verifying its terms.
 
+## Project structure convention
+
+The current application is a placeholder CLI. As features are implemented, organize them within the existing `src/DisplayDriverReinstaller` project:
+
+- `Features/<Feature>`: feature-specific behavior, models, and contracts.
+- `Workflow`: a small shared core for workflow state and transition rules.
+- `Platform/Windows`: Windows-specific system operations and implementations of contracts needed by the application.
+
+These are proposed locations, not existing or required empty folders. Keep the structure lightweight and evolve it with actual features rather than creating abstractions in advance.
+
+Features may use the shared workflow core and request platform effects through contracts; the application entry point can compose the implementations. Workflow rules must not depend on Windows-specific operations. Platform implementations may depend on the contracts they implement, not the other way around. Keep models and contracts with their owning module unless multiple modules genuinely need them; place a shared type in the smallest common core that owns its meaning. Introduce an interface when there is a real boundary, such as isolating a system effect for deterministic tests, not merely to wrap every class.
+
+For example, a future DDU feature's request model and process-running contract could live in `Features/DDU` if only that feature owns them; a Windows implementation would live in `Platform/Windows`. Share a contract only if multiple modules actually need the same boundary. This example does not imply DDU automation is supported or implemented.
+
+Mirror these areas under the existing `tests/DisplayDriverReinstaller.Tests` project as needed: test feature behavior alongside its feature, workflow rules independently of Windows, and platform-specific behavior at its boundary. Use fakes for system effects rather than performing real driver removal, installation, scheduling, or boot changes in automated tests or CI.
+
+Agents may update and expand this document during future work to explain the application's internal workings. Distinguish implemented behavior from proposals and keep the safety guidance current.
+
 ## Intended lifecycle
 
 1. Preflight: detect relevant drivers and prerequisites, and validate both local tools and system readiness.
